@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>谢博 · 软件产品经理</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: #f0f2f5;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #fff;
+            padding: 48px 40px 40px;
+            border-radius: 16px 16px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::after {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 200px; height: 200px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 50%;
+        }
+        .header h1 { font-size: 36px; font-weight: 700; letter-spacing: 2px; }
+        .header .subtitle {
+            font-size: 18px; color: #a0b4e8; margin-top: 8px; font-weight: 400;
+        }
+        .header .contact-row {
+            display: flex; flex-wrap: wrap; gap: 16px 32px; margin-top: 20px;
+            font-size: 14px; color: #c8d6f0;
+        }
+        .header .contact-row span { display: flex; align-items: center; gap: 6px; }
+
+        /* Body Card */
+        .card {
+            background: #fff; padding: 40px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        }
+        .card:last-of-type { border-radius: 0 0 16px 16px; }
+
+        .section { margin-bottom: 36px; }
+        .section:last-child { margin-bottom: 0; }
+        .section-title {
+            font-size: 18px; font-weight: 700; color: #1a1a2e;
+            padding-bottom: 10px; border-bottom: 2px solid #e8e8ee;
+            margin-bottom: 18px; display: flex; align-items: center; gap: 10px;
+        }
+        .section-title .icon { font-size: 20px; }
+
+        /* Project card */
+        .project { margin-bottom: 28px; }
+        .project:last-child { margin-bottom: 0; }
+        .project-header {
+            display: flex; justify-content: space-between; align-items: flex-start;
+            flex-wrap: wrap; gap: 8px; margin-bottom: 8px;
+        }
+        .project-name {
+            font-size: 16px; font-weight: 700; color: #16213e;
+        }
+        .project-tag {
+            display: inline-block; padding: 2px 12px; border-radius: 12px;
+            font-size: 12px; font-weight: 500;
+        }
+        .tag-blue { background: #e8eeff; color: #3b5fe0; }
+        .tag-green { background: #e6f7ee; color: #0e8b4a; }
+        .tag-orange { background: #fff3e6; color: #cc7a2a; }
+        .tag-purple { background: #f0e6ff; color: #7a3bcc; }
+        .project ul {
+            list-style: none; padding: 0; margin: 6px 0 0;
+        }
+        .project ul li {
+            position: relative; padding-left: 16px; margin-bottom: 4px;
+            font-size: 14px; color: #444;
+        }
+        .project ul li::before {
+            content: '·'; position: absolute; left: 4px; font-weight: 700; color: #3b5fe0;
+        }
+        .project-result {
+            margin-top: 8px; padding: 8px 14px; background: #f8f9ff;
+            border-left: 3px solid #3b5fe0; border-radius: 4px;
+            font-size: 14px; color: #2a2a4a;
+        }
+
+        /* Skill chips */
+        .skills { display: flex; flex-wrap: wrap; gap: 8px; }
+        .skill-chip {
+            padding: 4px 14px; border-radius: 14px;
+            font-size: 13px; background: #f0f2f5; color: #333;
+        }
+        .skill-chip.highlight { background: #e8eeff; color: #3b5fe0; font-weight: 500; }
+
+        /* Summary */
+        .summary {
+            background: linear-gradient(135deg, #f8f9ff, #f0f2f5);
+            padding: 20px 24px; border-radius: 12px; margin-bottom: 32px;
+            font-size: 15px; line-height: 1.8; color: #333;
+        }
+
+        /* Timeline */
+        .timeline { position: relative; padding-left: 24px; }
+        .timeline::before {
+            content: ''; position: absolute; left: 6px; top: 4px; bottom: 4px;
+            width: 2px; background: #dde0e8;
+        }
+        .timeline-item { position: relative; margin-bottom: 16px; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -20px; top: 8px;
+            width: 10px; height: 10px; border-radius: 50%; background: #3b5fe0;
+        }
+        .timeline-year { font-weight: 700; color: #16213e; font-size: 15px; }
+        .timeline-detail { font-size: 14px; color: #555; margin-top: 2px; }
+
+        /* Print */
+        @media print {
+            body { background: #fff; }
+            .container { max-width: 100%; padding: 0; }
+            .header { border-radius: 0; }
+            .card { box-shadow: none; }
+            .card:last-of-type { border-radius: 0; }
+        }
+        @media (max-width: 600px) {
+            .header { padding: 32px 20px; }
+            .card { padding: 24px 20px; }
+            .header h1 { font-size: 28px; }
+            .project-header { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- Header -->
+    <div class="header">
+        <h1>谢博</h1>
+        <div class="subtitle">软件产品经理 · 智能座舱方向 · 4年经验</div>
+        <div class="contact-row">
+            <span>📱 深圳创维电视 · 研究院</span>
+            <span>🎓 硕士 · 艺术设计</span>
+            <span>📍 意向城市：武汉 · 1个月内到岗</span>
+        </div>
+    </div>
+
+    <!-- Body -->
+    <div class="card">
+
+        <!-- Professional Summary -->
+        <div class="section">
+            <div class="section-title"><span class="icon">📌</span> 专业概览</div>
+            <div class="summary">
+                4年嵌入式OS软件产品经验，覆盖智能电视OS全生命周期——从底层系统功能定义到上层用户体验优化。擅长将复杂技术转化为用户价值，具备硬件+软件深度耦合场景下的产品定义能力。主导的省电模式功能赋能G3E系列年销售<strong>83,741台</strong>、销售额<strong>3.18亿</strong>；5.8G无线音频系统为行业首创，获市场高度认可。
+            </div>
+        </div>
+
+        <!-- Cross-domain Mapping (cockpit pitch) -->
+        <div class="section">
+            <div class="section-title"><span class="icon">🚗</span> TV OS → 智能座舱 · 能力迁移</div>
+            <div class="skills" style="margin-bottom:14px;">
+                <span class="skill-chip highlight">嵌入式OS全生命周期</span>
+                <span class="skill-chip highlight">大屏+音频+交互体验</span>
+                <span class="skill-chip highlight">软硬件深度耦合</span>
+                <span class="skill-chip">多供应商协同</span>
+            </div>
+            <div class="project" style="margin-bottom:0;">
+                <ul>
+                    <li><strong>省电模式（功耗↓20%-30%）</strong> → 新能源车能耗管理 / 续航策略</li>
+                    <li><strong>5.8G无线音频（延迟&lt;20ms）</strong> → 车载多音区 / 无线音频投送</li>
+                    <li><strong>多语言系统（维语/藏语）</strong> → 座舱系统全球化 / 出海本地化</li>
+                    <li><strong>音频架构重构（BUG↓70%）</strong> → 车载音效（杜比/DTS/品牌音响）</li>
+                    <li><strong>MTK平台产品定义</strong> → 车机芯片平台（MTK/高通/瑞萨）</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Core Experience -->
+        <div class="section">
+            <div class="section-title"><span class="icon">💼</span> 核心工作职责</div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">产品战略与路线图</div>
+                    <div class="timeline-detail">制定电视OS中长期软件功能演进路线图，负责年度/季度版本迭代规划</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">需求分析与产品定义</div>
+                    <div class="timeline-detail">将用户痛点转化为PRD、用户故事和交互原型，主导UI/开发/测试全链路需求评审</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">项目管理与交付</div>
+                    <div class="timeline-detail">制定开发计划，管控风险，主持站会/迭代评审，协调跨部门协作</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">数据追踪与迭代</div>
+                    <div class="timeline-detail">建立功能使用率、满意度、崩溃率等核心指标，驱动版本快速迭代</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Highlights -->
+        <div class="section">
+            <div class="section-title"><span class="icon">🏆</span> 重点项目业绩</div>
+
+            <div class="project">
+                <div class="project-header">
+                    <span class="project-name">⚡ 省电模式</span>
+                    <span class="project-tag tag-blue">产品策略 · 商业化</span>
+                </div>
+                <ul>
+                    <li>精准定位目标用户群，定义"省电模式"和"极致省电"两档模式</li>
+                    <li>与驱动/硬件团队协同研究功耗优化关键技术点</li>
+                    <li>主导功能卖点包装，为销售团队提供话术支持</li>
+                </ul>
+                <div class="project-result">
+                    📊 开启后功耗降低20%-30%，赋能G3E/G3EGT系列，<strong>2024年累计销售83,741台，销售额3.18亿元</strong>
+                </div>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <span class="project-name">🎵 5.8G无线音响系统</span>
+                    <span class="project-tag tag-green">行业创新 · 产品策划</span>
+                </div>
+                <ul>
+                    <li>行业首创基于5.8G私有协议的无线音频传输技术</li>
+                    <li>主导"一键配对""多音响自动识别组网"等核心体验定义</li>
+                    <li>协调软件/声学/硬件/采购/供应链等5+部门，确保量产落地</li>
+                </ul>
+                <div class="project-result">
+                    📊 25年新品Q7FPro首发核心卖点，音频延迟控制在<strong>20ms以内</strong>，首批出货<strong>500套</strong>
+                </div>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <span class="project-name">🌐 多语言系统支持</span>
+                    <span class="project-tag tag-orange">项目管理 · 社会责任</span>
+                </div>
+                <ul>
+                    <li>为电视OS新增中文繁体、维语、藏语的完整支持</li>
+                    <li>推动可灵活扩展的多语言框架，解决RTL语言UI布局适配难题</li>
+                    <li>管理翻译工作，协调开发/翻译商/测试团队</li>
+                </ul>
+                <div class="project-result">
+                    📊 项目按时交付100%，功能覆盖5种语言，继华为之后<strong>第2家</strong>系统级支持维语/藏语的电视厂商
+                </div>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <span class="project-name">🔊 声音设置逻辑重构</span>
+                    <span class="project-tag tag-purple">架构优化 · 效率提升</span>
+                </div>
+                <ul>
+                    <li>实现内外销声音逻辑完全一致，公版MTK代码完全共用</li>
+                    <li>跨部门跨组织协调拉通内部软件/中间件/系统/声学及MTK音频工程师</li>
+                    <li>解决多音效（杜比/哈曼/STO）与声音模式耦合的历史问题</li>
+                </ul>
+                <div class="project-result">
+                    📊 开发效率提升<strong>50%+</strong>，声音相关BUG数量<strong>下降70%</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skills -->
+        <div class="section">
+            <div class="section-title"><span class="icon">🛠️</span> 核心能力</div>
+            <div class="skills">
+                <span class="skill-chip highlight">产品规划与路线图</span>
+                <span class="skill-chip highlight">PRD撰写</span>
+                <span class="skill-chip highlight">项目管理</span>
+                <span class="skill-chip">跨部门协作</span>
+                <span class="skill-chip">用户调研</span>
+                <span class="skill-chip">竞品分析</span>
+                <span class="skill-chip">数据分析</span>
+                <span class="skill-chip">UI/UX设计</span>
+                <span class="skill-chip">敏捷开发</span>
+                <span class="skill-chip">MTK平台</span>
+                <span class="skill-chip">电视OS</span>
+                <span class="skill-chip">智能硬件</span>
+                <span class="skill-chip">智能座舱</span>
+            </div>
+        </div>
+
+        <!-- Basic Info -->
+        <div class="section">
+            <div class="section-title"><span class="icon">📋</span> 基本信息</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; font-size: 14px; color: #444;">
+                <div><strong>学历：</strong>硕士研究生</div>
+                <div><strong>本科：</strong>动画</div>
+                <div><strong>硕士：</strong>艺术设计</div>
+                <div><strong>现岗位：</strong>软件产品经理</div>
+                <div><strong>工作年限：</strong>4年</div>
+                <div><strong>职级：</strong>专业4级</div>
+                <div><strong>意向城市：</strong>武汉</div>
+                <div><strong>到岗时间：</strong>1个月内</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
