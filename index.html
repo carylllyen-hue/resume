@@ -1,310 +1,429 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>谢博 · 软件产品经理</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-            background: #f0f2f5;
-            color: #1a1a2e;
-            line-height: 1.6;
-        }
-        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>谢博 · 软件产品经理 · 智能座舱方向</title>
+<meta name="description" content="4年嵌入式OS软件产品经验，智能终端OS → 汽车智能座舱。深圳创维电视研究院，意向武汉。">
+<style>
+:root{
+  --bg:#0e1013; --panel:#171a1f; --panel-2:#1c2027; --line:#272b33;
+  --text:#e9ebef; --muted:#98a1ab; --dim:#6b7480;
+  --accent:#d9a05b; --accent-dim:rgba(217,160,91,.14);
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--text); font-family:var(--sans);
+  line-height:1.7; -webkit-font-smoothing:antialiased;
+  font-variant-numeric:tabular-nums;
+}
+::selection{background:var(--accent);color:#0e1013}
 
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            color: #fff;
-            padding: 48px 40px 40px;
-            border-radius: 16px 16px 0 0;
-            position: relative;
-            overflow: hidden;
-        }
-        .header::after {
-            content: '';
-            position: absolute;
-            top: -60px; right: -60px;
-            width: 200px; height: 200px;
-            background: rgba(255,255,255,0.04);
-            border-radius: 50%;
-        }
-        .header h1 { font-size: 36px; font-weight: 700; letter-spacing: 2px; }
-        .header .subtitle {
-            font-size: 18px; color: #a0b4e8; margin-top: 8px; font-weight: 400;
-        }
-        .header .contact-row {
-            display: flex; flex-wrap: wrap; gap: 16px 32px; margin-top: 20px;
-            font-size: 14px; color: #c8d6f0;
-        }
-        .header .contact-row span { display: flex; align-items: center; gap: 6px; }
+/* ---------- Layout ---------- */
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:172px 1fr;gap:56px}
 
-        /* Body Card */
-        .card {
-            background: #fff; padding: 40px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-        }
-        .card:last-of-type { border-radius: 0 0 16px 16px; }
+/* ---------- Sidebar ---------- */
+.side{position:sticky;top:0;height:100vh;padding:64px 0;display:flex;flex-direction:column;justify-content:center}
+.brand{font-size:13px;letter-spacing:.18em;color:var(--dim);text-transform:uppercase;margin-bottom:36px}
+.nav{display:flex;flex-direction:column;gap:2px}
+.nav a{
+  color:var(--dim);text-decoration:none;font-size:14px;padding:7px 0 7px 14px;
+  border-left:2px solid transparent;transition:.25s;
+}
+.nav a:hover{color:var(--text)}
+.nav a.on{color:var(--accent);border-left-color:var(--accent)}
+.side-foot{margin-top:36px;font-size:12px;color:var(--dim);line-height:1.9}
 
-        .section { margin-bottom: 36px; }
-        .section:last-child { margin-bottom: 0; }
-        .section-title {
-            font-size: 18px; font-weight: 700; color: #1a1a2e;
-            padding-bottom: 10px; border-bottom: 2px solid #e8e8ee;
-            margin-bottom: 18px; display: flex; align-items: center; gap: 10px;
-        }
-        .section-title .icon { font-size: 20px; }
+/* ---------- Main ---------- */
+main{padding:64px 0 96px}
 
-        /* Project card */
-        .project { margin-bottom: 28px; }
-        .project:last-child { margin-bottom: 0; }
-        .project-header {
-            display: flex; justify-content: space-between; align-items: flex-start;
-            flex-wrap: wrap; gap: 8px; margin-bottom: 8px;
-        }
-        .project-name {
-            font-size: 16px; font-weight: 700; color: #16213e;
-        }
-        .project-tag {
-            display: inline-block; padding: 2px 12px; border-radius: 12px;
-            font-size: 12px; font-weight: 500;
-        }
-        .tag-blue { background: #e8eeff; color: #3b5fe0; }
-        .tag-green { background: #e6f7ee; color: #0e8b4a; }
-        .tag-orange { background: #fff3e6; color: #cc7a2a; }
-        .tag-purple { background: #f0e6ff; color: #7a3bcc; }
-        .project ul {
-            list-style: none; padding: 0; margin: 6px 0 0;
-        }
-        .project ul li {
-            position: relative; padding-left: 16px; margin-bottom: 4px;
-            font-size: 14px; color: #444;
-        }
-        .project ul li::before {
-            content: '·'; position: absolute; left: 4px; font-weight: 700; color: #3b5fe0;
-        }
-        .project-result {
-            margin-top: 8px; padding: 8px 14px; background: #f8f9ff;
-            border-left: 3px solid #3b5fe0; border-radius: 4px;
-            font-size: 14px; color: #2a2a4a;
-        }
+/* ---------- Hero ---------- */
+.hero{padding:40px 0 72px;border-bottom:1px solid var(--line)}
+h1{font-size:56px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.role{margin-top:14px;font-size:19px;color:var(--accent);font-weight:500;letter-spacing:.01em}
+.lede{margin-top:26px;max-width:620px;font-size:16.5px;color:var(--muted);line-height:1.85}
+.meta{margin-top:30px;display:flex;flex-wrap:wrap;gap:10px 26px;font-size:13.5px;color:var(--dim)}
+.meta span{display:flex;align-items:center;gap:7px}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex:none}
 
-        /* Skill chips */
-        .skills { display: flex; flex-wrap: wrap; gap: 8px; }
-        .skill-chip {
-            padding: 4px 14px; border-radius: 14px;
-            font-size: 13px; background: #f0f2f5; color: #333;
-        }
-        .skill-chip.highlight { background: #e8eeff; color: #3b5fe0; font-weight: 500; }
+/* ---------- Stat blocks ---------- */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:44px}
+.stat{background:var(--panel);padding:26px 22px}
+.stat .n{font-size:34px;font-weight:700;color:var(--accent);line-height:1.1;letter-spacing:-.02em}
+.stat .n i{font-style:normal;font-size:16px;font-weight:500;margin-left:3px;color:var(--accent)}
+.stat .l{margin-top:8px;font-size:13px;color:var(--muted)}
+.stat .s{margin-top:3px;font-size:11.5px;color:var(--dim)}
 
-        /* Summary */
-        .summary {
-            background: linear-gradient(135deg, #f8f9ff, #f0f2f5);
-            padding: 20px 24px; border-radius: 12px; margin-bottom: 32px;
-            font-size: 15px; line-height: 1.8; color: #333;
-        }
+/* ---------- Section ---------- */
+section{padding:64px 0;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:none}
+.sh{display:flex;align-items:baseline;gap:14px;margin-bottom:32px}
+.sh .idx{font-size:12px;color:var(--accent);letter-spacing:.12em;font-weight:600}
+.sh h2{font-size:24px;font-weight:700;letter-spacing:-.01em}
+.sh .cn{margin-left:auto;font-size:12.5px;color:var(--dim)}
 
-        /* Timeline */
-        .timeline { position: relative; padding-left: 24px; }
-        .timeline::before {
-            content: ''; position: absolute; left: 6px; top: 4px; bottom: 4px;
-            width: 2px; background: #dde0e8;
-        }
-        .timeline-item { position: relative; margin-bottom: 16px; }
-        .timeline-item::before {
-            content: ''; position: absolute; left: -20px; top: 8px;
-            width: 10px; height: 10px; border-radius: 50%; background: #3b5fe0;
-        }
-        .timeline-year { font-weight: 700; color: #16213e; font-size: 15px; }
-        .timeline-detail { font-size: 14px; color: #555; margin-top: 2px; }
+/* ---------- Mapping ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.chip{font-size:12.5px;padding:5px 13px;border-radius:20px;background:var(--accent-dim);
+  color:var(--accent);border:1px solid rgba(217,160,91,.22)}
+.chip.g{background:var(--panel-2);color:var(--muted);border:1px solid var(--line)}
+.map{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.row{display:grid;grid-template-columns:1fr 42px 1fr;align-items:center;
+  border-bottom:1px solid var(--line);transition:background .2s}
+.row:last-child{border-bottom:none}
+.row:hover{background:var(--panel)}
+.row .a{padding:18px 22px;font-size:14.5px;font-weight:500}
+.row .a em{display:block;font-style:normal;font-size:12px;color:var(--dim);margin-top:3px;font-weight:400}
+.row .ar{text-align:center;color:var(--accent);font-size:14px}
+.row .b{padding:18px 22px;font-size:14.5px;color:var(--muted)}
+.row .b strong{color:var(--text);font-weight:600}
 
-        /* Print */
-        @media print {
-            body { background: #fff; }
-            .container { max-width: 100%; padding: 0; }
-            .header { border-radius: 0; }
-            .card { box-shadow: none; }
-            .card:last-of-type { border-radius: 0; }
-        }
-        @media (max-width: 600px) {
-            .header { padding: 32px 20px; }
-            .card { padding: 24px 20px; }
-            .header h1 { font-size: 28px; }
-            .project-header { flex-direction: column; }
-        }
-    </style>
+/* ---------- Projects ---------- */
+.proj{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:28px 26px;margin-bottom:16px;transition:.25s}
+.proj:hover{border-color:#3a4048;transform:translateY(-2px)}
+.ph{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.pt{font-size:17px;font-weight:700;letter-spacing:-.01em}
+.tag{font-size:11.5px;padding:3px 11px;border-radius:5px;background:var(--panel-2);
+  color:var(--muted);border:1px solid var(--line);white-space:nowrap}
+.proj ul{list-style:none;margin-top:14px}
+.proj li{position:relative;padding-left:15px;font-size:14px;color:var(--muted);margin-bottom:6px}
+.proj li::before{content:"";position:absolute;left:0;top:11px;width:4px;height:1px;background:var(--accent)}
+.res{margin-top:16px;padding:13px 16px;background:var(--panel-2);border-radius:8px;
+  border-left:2px solid var(--accent);font-size:14px;color:var(--text)}
+.res b{color:var(--accent);font-weight:700}
+
+/* ---------- Timeline ---------- */
+.tl{position:relative;padding-left:26px}
+.tl::before{content:"";position:absolute;left:5px;top:8px;bottom:8px;width:1px;background:var(--line)}
+.ti{position:relative;margin-bottom:22px}
+.ti::before{content:"";position:absolute;left:-24px;top:9px;width:9px;height:9px;
+  border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+.ti h4{font-size:15px;font-weight:600}
+.ti p{margin-top:4px;font-size:14px;color:var(--muted)}
+
+/* ---------- Skills ---------- */
+.sk{display:flex;flex-wrap:wrap;gap:8px}
+.sk span{font-size:13px;padding:6px 15px;border-radius:6px;
+  background:var(--panel);border:1px solid var(--line);color:var(--muted)}
+.sk span.hi{color:var(--accent);border-color:rgba(217,160,91,.25);background:var(--accent-dim)}
+
+/* ---------- Info ---------- */
+.info{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 32px;font-size:14px}
+.info div{display:flex;gap:10px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.info dt{color:var(--dim);min-width:76px;flex:none}
+.info dd{color:var(--text)}
+
+/* ---------- Contact ---------- */
+.contact{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:8px}
+.cbox{border:1px dashed #3a4048;border-radius:10px;padding:18px 20px;background:var(--panel)}
+.cbox .k{font-size:12px;color:var(--dim);letter-spacing:.05em}
+.cbox .v{margin-top:6px;font-size:15.5px;color:var(--text);font-weight:500}
+.cbox.pending .v{color:var(--dim);font-weight:400}
+
+/* ---------- Reveal ---------- */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* ---------- Responsive ---------- */
+@media (max-width:900px){
+  .wrap{grid-template-columns:1fr;gap:0;padding:0 22px}
+  .side{position:static;height:auto;padding:28px 0 0;flex-direction:row;align-items:center;
+    justify-content:space-between;flex-wrap:wrap;gap:12px;border-bottom:1px solid var(--line)}
+  .brand{margin:0}
+  .nav{flex-direction:row;gap:16px;overflow-x:auto}
+  .nav a{padding:0 0 8px;border-left:none;border-bottom:2px solid transparent}
+  .nav a.on{border-left:none;border-bottom-color:var(--accent)}
+  .side-foot{display:none}
+  main{padding:36px 0 64px}
+  h1{font-size:38px}
+  .stats{grid-template-columns:1fr}
+  .map .row{grid-template-columns:1fr;gap:0}
+  .row .ar{padding:0 22px 14px;text-align:left}
+  .row .b{padding-top:0}
+  .info,.contact{grid-template-columns:1fr}
+}
+
+/* ---------- Print ---------- */
+@media print{
+  :root{--bg:#fff;--panel:#fff;--panel-2:#f6f7f9;--line:#dfe2e6;--text:#111;--muted:#444;--dim:#777;--accent:#8a5a20}
+  body{background:#fff}
+  .side{display:none}
+  .wrap{grid-template-columns:1fr;max-width:100%}
+  main{padding:0}
+  .proj,.stat,.map{border-color:#ccc}
+  .rv{opacity:1;transform:none}
+  section{page-break-inside:avoid}
+}
+</style>
 </head>
 <body>
-<div class="container">
+<div class="wrap">
 
-    <!-- Header -->
-    <div class="header">
-        <h1>谢博</h1>
-        <div class="subtitle">软件产品经理 · 智能座舱方向 · 4年经验</div>
-        <div class="contact-row">
-            <span>📱 深圳创维电视 · 研究院</span>
-            <span>🎓 硕士 · 艺术设计</span>
-            <span>📍 意向城市：武汉 · 1个月内到岗</span>
+  <aside class="side">
+    <div class="brand">Xie Bo</div>
+    <nav class="nav">
+      <a href="#top" class="on">概览</a>
+      <a href="#map">能力迁移</a>
+      <a href="#work">项目业绩</a>
+      <a href="#duty">职责与能力</a>
+      <a href="#info">基本信息</a>
+    </nav>
+    <div class="side-foot">
+      深圳 → 武汉<br>2026 Q4
+    </div>
+  </aside>
+
+  <main>
+    <!-- HERO -->
+    <div class="hero" id="top">
+      <h1>谢博</h1>
+      <div class="role">软件产品经理 · 智能座舱方向</div>
+      <p class="lede">
+        4年嵌入式OS软件产品经验，覆盖智能终端OS全生命周期——从底层系统功能定义到上层用户体验优化。
+        擅长在硬件与软件深度耦合的场景中做产品定义，把复杂技术翻译成用户可感知的价值。
+        正在把这套能力迁移到汽车智能座舱。
+      </p>
+      <div class="meta">
+        <span><i class="dot"></i>深圳创维电视 · 研究院</span>
+        <span><i class="dot"></i>硕士 · 艺术设计</span>
+        <span><i class="dot"></i>意向城市：武汉</span>
+        <span><i class="dot"></i>1个月内到岗</span>
+      </div>
+
+      <div class="stats rv">
+        <div class="stat">
+          <div class="n"><span data-count="3.18" data-dec="2">0</span><i>亿</i></div>
+          <div class="l">省电模式带动销售额</div>
+          <div class="s">G3E/G3EGT 系列 2024 年度</div>
         </div>
+        <div class="stat">
+          <div class="n"><span data-count="83741">0</span><i>台</i></div>
+          <div class="l">同年整机销售</div>
+          <div class="s">开启后功耗降低 20%-30%</div>
+        </div>
+        <div class="stat">
+          <div class="n"><span data-count="20">0</span><i>ms</i></div>
+          <div class="l">5.8G 无线音频延迟</div>
+          <div class="s">行业首创私有协议</div>
+        </div>
+      </div>
     </div>
 
-    <!-- Body -->
-    <div class="card">
-
-        <!-- Professional Summary -->
-        <div class="section">
-            <div class="section-title"><span class="icon">📌</span> 专业概览</div>
-            <div class="summary">
-                4年嵌入式OS软件产品经验，覆盖智能电视OS全生命周期——从底层系统功能定义到上层用户体验优化。擅长将复杂技术转化为用户价值，具备硬件+软件深度耦合场景下的产品定义能力。主导的省电模式功能赋能G3E系列年销售<strong>83,741台</strong>、销售额<strong>3.18亿</strong>；5.8G无线音频系统为行业首创，获市场高度认可。
-            </div>
+    <!-- MAPPING -->
+    <section id="map" class="rv">
+      <div class="sh">
+        <span class="idx">01</span>
+        <h2>TV OS → 智能座舱</h2>
+        <span class="cn">能力迁移</span>
+      </div>
+      <div class="chips">
+        <span class="chip">嵌入式 OS 全生命周期</span>
+        <span class="chip">大屏 · 音频 · 交互</span>
+        <span class="chip">软硬件深度耦合</span>
+        <span class="chip g">多供应商协同</span>
+      </div>
+      <div class="map">
+        <div class="row">
+          <div class="a">省电模式<em>功耗降低 20%-30%</em></div>
+          <div class="ar">→</div>
+          <div class="b"><strong>新能源车能耗管理</strong> / 续航优化策略</div>
         </div>
-
-        <!-- Cross-domain Mapping (cockpit pitch) -->
-        <div class="section">
-            <div class="section-title"><span class="icon">🚗</span> TV OS → 智能座舱 · 能力迁移</div>
-            <div class="skills" style="margin-bottom:14px;">
-                <span class="skill-chip highlight">嵌入式OS全生命周期</span>
-                <span class="skill-chip highlight">大屏+音频+交互体验</span>
-                <span class="skill-chip highlight">软硬件深度耦合</span>
-                <span class="skill-chip">多供应商协同</span>
-            </div>
-            <div class="project" style="margin-bottom:0;">
-                <ul>
-                    <li><strong>省电模式（功耗↓20%-30%）</strong> → 新能源车能耗管理 / 续航策略</li>
-                    <li><strong>5.8G无线音频（延迟&lt;20ms）</strong> → 车载多音区 / 无线音频投送</li>
-                    <li><strong>多语言系统（维语/藏语）</strong> → 座舱系统全球化 / 出海本地化</li>
-                    <li><strong>音频架构重构（BUG↓70%）</strong> → 车载音效（杜比/DTS/品牌音响）</li>
-                    <li><strong>MTK平台产品定义</strong> → 车机芯片平台（MTK/高通/瑞萨）</li>
-                </ul>
-            </div>
+        <div class="row">
+          <div class="a">5.8G 无线音频系统<em>延迟 &lt;20ms，行业首创</em></div>
+          <div class="ar">→</div>
+          <div class="b"><strong>车载多音区管理</strong> / 无线音频投送</div>
         </div>
-
-        <!-- Core Experience -->
-        <div class="section">
-            <div class="section-title"><span class="icon">💼</span> 核心工作职责</div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-year">产品战略与路线图</div>
-                    <div class="timeline-detail">制定电视OS中长期软件功能演进路线图，负责年度/季度版本迭代规划</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">需求分析与产品定义</div>
-                    <div class="timeline-detail">将用户痛点转化为PRD、用户故事和交互原型，主导UI/开发/测试全链路需求评审</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">项目管理与交付</div>
-                    <div class="timeline-detail">制定开发计划，管控风险，主持站会/迭代评审，协调跨部门协作</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">数据追踪与迭代</div>
-                    <div class="timeline-detail">建立功能使用率、满意度、崩溃率等核心指标，驱动版本快速迭代</div>
-                </div>
-            </div>
+        <div class="row">
+          <div class="a">多语言系统支持<em>维语 / 藏语 / RTL 适配</em></div>
+          <div class="ar">→</div>
+          <div class="b"><strong>座舱系统全球化</strong> / 出海本地化</div>
         </div>
-
-        <!-- Project Highlights -->
-        <div class="section">
-            <div class="section-title"><span class="icon">🏆</span> 重点项目业绩</div>
-
-            <div class="project">
-                <div class="project-header">
-                    <span class="project-name">⚡ 省电模式</span>
-                    <span class="project-tag tag-blue">产品策略 · 商业化</span>
-                </div>
-                <ul>
-                    <li>精准定位目标用户群，定义"省电模式"和"极致省电"两档模式</li>
-                    <li>与驱动/硬件团队协同研究功耗优化关键技术点</li>
-                    <li>主导功能卖点包装，为销售团队提供话术支持</li>
-                </ul>
-                <div class="project-result">
-                    📊 开启后功耗降低20%-30%，赋能G3E/G3EGT系列，<strong>2024年累计销售83,741台，销售额3.18亿元</strong>
-                </div>
-            </div>
-
-            <div class="project">
-                <div class="project-header">
-                    <span class="project-name">🎵 5.8G无线音响系统</span>
-                    <span class="project-tag tag-green">行业创新 · 产品策划</span>
-                </div>
-                <ul>
-                    <li>行业首创基于5.8G私有协议的无线音频传输技术</li>
-                    <li>主导"一键配对""多音响自动识别组网"等核心体验定义</li>
-                    <li>协调软件/声学/硬件/采购/供应链等5+部门，确保量产落地</li>
-                </ul>
-                <div class="project-result">
-                    📊 25年新品Q7FPro首发核心卖点，音频延迟控制在<strong>20ms以内</strong>，首批出货<strong>500套</strong>
-                </div>
-            </div>
-
-            <div class="project">
-                <div class="project-header">
-                    <span class="project-name">🌐 多语言系统支持</span>
-                    <span class="project-tag tag-orange">项目管理 · 社会责任</span>
-                </div>
-                <ul>
-                    <li>为电视OS新增中文繁体、维语、藏语的完整支持</li>
-                    <li>推动可灵活扩展的多语言框架，解决RTL语言UI布局适配难题</li>
-                    <li>管理翻译工作，协调开发/翻译商/测试团队</li>
-                </ul>
-                <div class="project-result">
-                    📊 项目按时交付100%，功能覆盖5种语言，继华为之后<strong>第2家</strong>系统级支持维语/藏语的电视厂商
-                </div>
-            </div>
-
-            <div class="project">
-                <div class="project-header">
-                    <span class="project-name">🔊 声音设置逻辑重构</span>
-                    <span class="project-tag tag-purple">架构优化 · 效率提升</span>
-                </div>
-                <ul>
-                    <li>实现内外销声音逻辑完全一致，公版MTK代码完全共用</li>
-                    <li>跨部门跨组织协调拉通内部软件/中间件/系统/声学及MTK音频工程师</li>
-                    <li>解决多音效（杜比/哈曼/STO）与声音模式耦合的历史问题</li>
-                </ul>
-                <div class="project-result">
-                    📊 开发效率提升<strong>50%+</strong>，声音相关BUG数量<strong>下降70%</strong>
-                </div>
-            </div>
+        <div class="row">
+          <div class="a">音频架构重构<em>BUG 下降 70%，效率 +50%</em></div>
+          <div class="ar">→</div>
+          <div class="b"><strong>车载音效系统</strong>（杜比 / DTS / 品牌音响）</div>
         </div>
-
-        <!-- Skills -->
-        <div class="section">
-            <div class="section-title"><span class="icon">🛠️</span> 核心能力</div>
-            <div class="skills">
-                <span class="skill-chip highlight">产品规划与路线图</span>
-                <span class="skill-chip highlight">PRD撰写</span>
-                <span class="skill-chip highlight">项目管理</span>
-                <span class="skill-chip">跨部门协作</span>
-                <span class="skill-chip">用户调研</span>
-                <span class="skill-chip">竞品分析</span>
-                <span class="skill-chip">数据分析</span>
-                <span class="skill-chip">UI/UX设计</span>
-                <span class="skill-chip">敏捷开发</span>
-                <span class="skill-chip">MTK平台</span>
-                <span class="skill-chip">电视OS</span>
-                <span class="skill-chip">智能硬件</span>
-                <span class="skill-chip">智能座舱</span>
-            </div>
+        <div class="row">
+          <div class="a">MTK 平台产品定义<em>公版代码共用、跨组织拉通</em></div>
+          <div class="ar">→</div>
+          <div class="b"><strong>车机芯片平台</strong>（MTK / 高通 / 瑞萨）产品定义</div>
         </div>
+      </div>
+    </section>
 
-        <!-- Basic Info -->
-        <div class="section">
-            <div class="section-title"><span class="icon">📋</span> 基本信息</div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; font-size: 14px; color: #444;">
-                <div><strong>学历：</strong>硕士研究生</div>
-                <div><strong>本科：</strong>动画</div>
-                <div><strong>硕士：</strong>艺术设计</div>
-                <div><strong>现岗位：</strong>软件产品经理</div>
-                <div><strong>工作年限：</strong>4年</div>
-                <div><strong>职级：</strong>专业4级</div>
-                <div><strong>意向城市：</strong>武汉</div>
-                <div><strong>到岗时间：</strong>1个月内</div>
-            </div>
+    <!-- PROJECTS -->
+    <section id="work" class="rv">
+      <div class="sh">
+        <span class="idx">02</span>
+        <h2>重点项目业绩</h2>
+        <span class="cn">从 0 到 1 · 量化结果</span>
+      </div>
+
+      <div class="proj">
+        <div class="ph">
+          <span class="pt">省电模式</span>
+          <span class="tag">产品策略 · 商业化</span>
         </div>
+        <ul>
+          <li>精准定位目标用户群，定义"省电模式"与"极致省电"两档模式</li>
+          <li>与驱动 / 硬件团队协同研究功耗优化关键技术点</li>
+          <li>主导功能卖点包装，为销售团队提供话术支持</li>
+        </ul>
+        <div class="res">开启后功耗降低 20%-30%，赋能 G3E/G3EGT 系列，2024 年累计销售 <b>83,741 台</b>、销售额 <b>3.18 亿元</b></div>
+      </div>
 
-    </div>
+      <div class="proj">
+        <div class="ph">
+          <span class="pt">5.8G 无线音频系统</span>
+          <span class="tag">行业创新 · 产品策划</span>
+        </div>
+        <ul>
+          <li>行业首创基于 5.8G 私有协议的无线音频传输技术，主设备与配件无感低延迟连接</li>
+          <li>主导"一键配对""多设备自动识别组网""影院级音画同步"等核心体验定义</li>
+          <li>协调软件 / 声学 / 硬件 / 采购 / 供应链 5+ 部门，确保从 0 到 1 量产落地</li>
+        </ul>
+        <div class="res">25 年新品 Q7FPro 首发核心卖点，音频延迟控制在 <b>20ms 以内</b>，首批出货 <b>500 套</b></div>
+      </div>
+
+      <div class="proj">
+        <div class="ph">
+          <span class="pt">多语言系统支持</span>
+          <span class="tag">项目管理 · 本地化</span>
+        </div>
+        <ul>
+          <li>为智能终端 OS 新增中文繁体、维语、藏语的完整系统级支持</li>
+          <li>推动可灵活扩展的多语言框架，解决 RTL 语言 UI 布局适配等技术难题</li>
+          <li>管理大规模翻译工作，协调开发 / 翻译商 / 测试团队按期交付</li>
+        </ul>
+        <div class="res">项目按时交付 100%，覆盖 <b>5 种语言</b>，继华为之后 <b>第 2 家</b> 系统级支持维语 / 藏语的电视厂商</div>
+      </div>
+
+      <div class="proj">
+        <div class="ph">
+          <span class="pt">音频架构重构</span>
+          <span class="tag">架构优化 · 效率提升</span>
+        </div>
+        <ul>
+          <li>实现内外销音频逻辑完全一致，公版 MTK 代码完全共用</li>
+          <li>跨部门跨组织拉通软件 / 中间件 / 系统 / 声学工程师及 MTK 音频工程师</li>
+          <li>解决多音效（杜比 / 哈曼 / STO）与声音模式强耦合的历史架构问题</li>
+        </ul>
+        <div class="res">音频相关 BUG 数量 <b>下降超 70%</b>，外销项目开发效率 <b>提升 50%+</b></div>
+      </div>
+    </section>
+
+    <!-- DUTY -->
+    <section id="duty" class="rv">
+      <div class="sh">
+        <span class="idx">03</span>
+        <h2>职责与能力</h2>
+        <span class="cn">工作方式</span>
+      </div>
+      <div class="tl">
+        <div class="ti">
+          <h4>产品战略与路线图</h4>
+          <p>制定智能终端 OS 中长期功能演进路线图，负责年度 / 季度版本迭代规划</p>
+        </div>
+        <div class="ti">
+          <h4>需求分析与产品定义</h4>
+          <p>将用户痛点转化为 PRD、用户故事和交互原型，主导全链路需求评审</p>
+        </div>
+        <div class="ti">
+          <h4>项目管理与交付</h4>
+          <p>制定开发计划、管控风险，主持站会 / 迭代评审，协调跨部门协作</p>
+        </div>
+        <div class="ti">
+          <h4>数据追踪与迭代</h4>
+          <p>建立功能使用率、满意度、崩溃率等核心指标，驱动版本快速迭代</p>
+        </div>
+      </div>
+      <div class="sk" style="margin-top:30px">
+        <span class="hi">产品规划与路线图</span>
+        <span class="hi">PRD 撰写</span>
+        <span class="hi">项目管理</span>
+        <span>跨部门协作</span>
+        <span>用户调研</span>
+        <span>竞品分析</span>
+        <span>数据分析</span>
+        <span>A/B 测试</span>
+        <span>HMI 交互设计</span>
+        <span>敏捷开发</span>
+        <span>MTK 平台</span>
+        <span>嵌入式系统</span>
+        <span>智能终端 OS</span>
+        <span class="hi">智能座舱</span>
+      </div>
+    </section>
+
+    <!-- INFO -->
+    <section id="info" class="rv">
+      <div class="sh">
+        <span class="idx">04</span>
+        <h2>基本信息</h2>
+        <span class="cn">联系方式</span>
+      </div>
+      <div class="info">
+        <div><dt>学历</dt><dd>硕士研究生</dd></div>
+        <div><dt>本科</dt><dd>动画</dd></div>
+        <div><dt>硕士</dt><dd>艺术设计</dd></div>
+        <div><dt>现岗位</dt><dd>软件产品经理</dd></div>
+        <div><dt>工作年限</dt><dd>4 年</dd></div>
+        <div><dt>职级</dt><dd>专业 4 级</dd></div>
+        <div><dt>意向城市</dt><dd>武汉</dd></div>
+        <div><dt>到岗时间</dt><dd>1 个月内</dd></div>
+      </div>
+      <div class="contact">
+        <div class="cbox pending">
+          <div class="k">手机</div>
+          <div class="v">待补充</div>
+        </div>
+        <div class="cbox pending">
+          <div class="k">邮箱</div>
+          <div class="v">待补充</div>
+        </div>
+      </div>
+    </section>
+  </main>
 </div>
+
+<script>
+// 滚动淡入
+var io = new IntersectionObserver(function(es){
+  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+},{threshold:.12, rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+
+// 导航高亮
+var secs = ['top','map','work','duty','info'];
+var spy = new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(e.isIntersecting){
+      document.querySelectorAll('.nav a').forEach(function(a){
+        a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id);
+      });
+    }
+  });
+},{threshold:.3});
+secs.forEach(function(id){ var el = document.getElementById(id); if(el) spy.observe(el); });
+
+// 数字滚动
+function count(el){
+  var target = parseFloat(el.dataset.count), dec = parseInt(el.dataset.dec || 0), dur = 1100, t0 = performance.now();
+  (function tick(now){
+    var p = Math.min((now - t0) / dur, 1), e = 1 - Math.pow(1 - p, 3);
+    el.textContent = (target * e).toLocaleString('zh-CN', {minimumFractionDigits:dec, maximumFractionDigits:dec});
+    if(p < 1) requestAnimationFrame(tick);
+  })(t0);
+}
+var cio = new IntersectionObserver(function(es){
+  es.forEach(function(e){ if(e.isIntersecting && !e.target.dataset.done){ e.target.dataset.done = 1; count(e.target); } });
+},{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(function(el){ cio.observe(el); });
+</script>
 </body>
 </html>
